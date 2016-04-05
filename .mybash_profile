@@ -1,0 +1,38 @@
+
+# My exports
+export LS_COLORS=$LS_COLORS:'ex=1;31'
+export PROMPT_COMMAND='let COUNTER=`tput cols`-1; until [  $COUNTER -lt 0 ]; do echo -n "_"; let COUNTER-=1; done; echo'
+export GREP_OPTIONS='--color=always'
+export GREP_COLOR='1;35;40'
+
+# aliases
+alias myunzip='find . -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;'
+alias findcopy='find . -name "*.py" -print0 | xargs -0 -I {} cp {}'
+alias sshjetson='ssh ubuntu@128.138.224.183'
+alias sshninjabrix='ssh arpg@192.168.1.3'
+alias sshmybrix='ssh arpg@128.138.224.89'
+alias ls='ls -G'
+
+confirm () {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Are you sure? [y/n]} " response
+    case $response in
+        [yY][eE][sS]|[yY])
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+
+checkbuild() {
+    if [ ${PWD##*/} = $'build' ];
+    then
+        true
+    else
+        echo -bash: This is not a build directory!!!
+        false
+    fi
+}
+alias smake='checkbuild && rm -r * && cmake .. && make -j'
