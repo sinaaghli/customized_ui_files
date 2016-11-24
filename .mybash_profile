@@ -5,6 +5,10 @@ export PROMPT_COMMAND='let COUNTER=`tput cols`-1; until [  $COUNTER -lt 0 ]; do 
 export GREP_OPTIONS='--color=always'
 export GREP_COLOR='1;35;40'
 
+# yotta tab completion
+eval "$(register-python-argcomplete yotta)"
+eval "$(register-python-argcomplete yt)"
+
 # aliases
 alias myunzip='find . -name "*.zip" | while read filename; do unzip -o -d "`basename -s .zip "$filename"`" "$filename"; done;'
 alias findcopy='find . -name "*.py" -print0 | xargs -0 -I {} cp {}'
